@@ -1,13 +1,16 @@
 import React from 'react';
 import { useGetPostQuery } from '../services/hackerNews';
-import { PostData, PostDataTitle, PostTitle, WrapperPost, StyledLink } from '../styles/PostStyle';
+import { useParams } from 'react-router-dom';
+import { PostData, PostDataTitle  } from '../styles/PostStyle';
+import {WrapperPostDetails, PostDetailsTitle, StyledLinkBack} from '../styles/PostDetails';
 
-interface PostProps {
-    postId: number;
+type PostParams = {
+    id: string
 }
 
-function Post({ postId }: PostProps) {
-    const { data, error, isLoading } = useGetPostQuery(postId);
+function PostDetails() {
+    const {id} = useParams<PostParams>();
+    const { data, error, isLoading } = useGetPostQuery(Number(id));
     const getDate = (ms: number): string => {
         const date = new Date(ms);
         const day = ('0' + date.getDate()).slice(-2);
@@ -18,19 +21,15 @@ function Post({ postId }: PostProps) {
 
     return (
         <>
+        
             {isLoading ? (
                 <>Loading...</>
             )
             : error ? (
                 <div>Server error</div>
             ) : data ? (
-                <WrapperPost>
-                    <PostTitle>
-                        {/* <a href={data.url}>
-                            {data.title}
-                        </a> */}
-                        <StyledLink to={`/post/${postId}`}>{data.title}</StyledLink>
-                    </PostTitle>
+                <WrapperPostDetails>
+                    <PostDetailsTitle>{data.title}</PostDetailsTitle>
                     <PostData>
                         <span className='postdata'>
                         <PostDataTitle>By: </PostDataTitle>{data.by}
@@ -40,10 +39,10 @@ function Post({ postId }: PostProps) {
                         </span>
                         <span>
                         <PostDataTitle>Date: </PostDataTitle>{getDate(data.time)} 
-                        
                         </span>
                     </PostData>
-                </WrapperPost>
+                    <StyledLinkBack to='/hacker_news'>Back to main page</StyledLinkBack>
+                </WrapperPostDetails>
             )
                 : null} 
         </>
@@ -51,4 +50,4 @@ function Post({ postId }: PostProps) {
 
 }
 
-export default Post;
+export default PostDetails;

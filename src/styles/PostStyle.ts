@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const WrapperPost = styled.section`
     border-top: 1px solid #ccc;
@@ -18,18 +19,6 @@ export const WrapperPost = styled.section`
 export const PostTitle = styled.h2`
     font-size: 18px;
     text-decoration: none;
-
-    a {
-        color: #2e2e2c;
-        text-decoration: none;
-        background-color: #fad414;
-        transition: all .3s ease-out;
-    }
-    a:hover {
-        background-color: #faad14;
-        transition: none;
-        cursor: pointer;
-    }
 `
 
 export const PostData = styled.div`
@@ -41,5 +30,19 @@ export const PostData = styled.div`
 
 export const PostDataTitle = styled.span`
     font-weight: bold;
-    color: ${props => props.color || "#2e2e2c"}
+    color: ${props => props.color || "#2e2e2c"};
 `
+
+export const StyledLink = styled(Link)`
+    color: #2e2e2c;
+    text-decoration: none;
+    background-color: #fad414;
+    transition: all .3s ease-out;
+
+    &:hover {
+        background-color: #faad14;
+        transition: none;
+        cursor: pointer;
+    }
+`;
+
