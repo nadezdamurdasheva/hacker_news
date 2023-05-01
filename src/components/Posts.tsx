@@ -1,24 +1,42 @@
 import React from 'react';
 import Post from './Post';
 import { WrapperPosts } from '../styles/PostsStyle';
+import LoadingPage from './LoadingPage';
+import { useGetIdsHackerNewsQuery } from '../services/hackerNews';
+import ErrorPage from './ErrorPage';
 
-type HackerNews = number[]
+function Posts() {
+    const { data , error, isLoading } = useGetIdsHackerNewsQuery();
+  if (isLoading) {
+    return <LoadingPage />
+  } 
+  if (error) {
+    if ('status' in error) {
+      const errorMsg = error.status;
 
-interface PostsProps {
-    data: HackerNews;
-}
-
-function Posts({data} : PostsProps) {
+      return (
+        <ErrorPage errorMsg={errorMsg}/>
+      )
+    }
+    else {
+        return <ErrorPage errorMsg={error.message}/>
+    }
+  } 
+  if(data) {
     return (
-        <>
-            <WrapperPosts>
+        <WrapperPosts>
             <h1>Hacker News</h1>
-            {data.map(postId => (
-                <Post key={postId} postId={postId} />
-            ))}
-            </WrapperPosts>
-        </>
-    )
+            <ul>
+                {data.map(postId => (
+                    <li key={postId}>
+                        <Post postId={postId} />
+                    </li>
+                ))}
+            </ul>
+        </WrapperPosts>
+      )
+  }
+  return null;
 }
 
 export default Posts;

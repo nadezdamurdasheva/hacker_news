@@ -17,4 +17,8 @@ export const WrapperPosts = styled.main`
     padding: 20px 15px;
     max-width: 1140px;
     margin: 0 auto;
+
+    ul {
+        list-style-type: none;
+    }
 `

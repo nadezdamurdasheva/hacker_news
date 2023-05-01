@@ -1,6 +1,6 @@
 # Hacker News - Приложение
 
-Этот проект создан при помощи React, TypeScript, Redux Toolkit (RTK Query), Styled Components и Hacker News API.
+Этот проект создан при помощи React, TypeScript, Redux Toolkit (RTK Query), Styled Components, Hacker News API и React Router v6.
 
 ## Чтобы посмотреть, как работает приложение
 
@@ -11,3 +11,4 @@
 - Загрузка данных с Hacker News API
 - Отображение данных на экране
 - Обработка ошибок
+- Роутинг-переходы между главной страницей и страницей с постом
